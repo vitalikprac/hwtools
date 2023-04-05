@@ -2,9 +2,22 @@ const randomMinMax = (min, max) => {
   return Math.random() * (max - min) + min;
 }
 
+const randomIntMinMax = (min, max) =>{
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const timeout = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+const shuffle = (arr)=>{
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 
 
 export const generateSensors = (count) => {
@@ -16,6 +29,15 @@ export const generateSensors = (count) => {
     emergencyLimit: randomMinMax(2, 5),
   }));
 };
+
+export const generateSensorsForAddressCalculation = (count) => {
+  const priorityNumbers = shuffle(new Array(parseInt(count,10)).fill(0).map((_, i) => i + 1));
+  return generateSensors(count).map((sensor) => ({
+    ...sensor,
+    timeMeasure: randomIntMinMax(1, 5),
+    priority: priorityNumbers[sensor.key - 1],
+  }));
+}
 
 const performSensor = (sensor) => {
   const RANDOM_MIN_MAX = 5;
@@ -48,9 +70,23 @@ const performSensor = (sensor) => {
 
 export const sensorsPerformCalculation = async (sensors, time, onPerformSensor) =>{
   for (const sensor of sensors) {
-    await timeout(time);
+    await timeout(time * 1000);
     const performedSensor = performSensor(sensor); 
     onPerformSensor(performedSensor);
   }
 }
 
+export const sensorsPerformAddressCalculation = async (sensors, onPerformSensor) => {
+  sensors.sort((a, b) => a.priority - b.priority);
+  for (const sensor of sensors) {
+    await timeout(sensor.timeMeasure * 1000)
+    const performedSensor = performSensor(sensor);
+    onPerformSensor(performedSensor);
+  }
+}
+
+export const sensorPerformAddressCalculation = async (sensor, onPerformSensor) => {
+  await timeout(sensor.timeMeasure * 1000)
+  const performedSensor = performSensor(sensor);
+  onPerformSensor(performedSensor);
+}

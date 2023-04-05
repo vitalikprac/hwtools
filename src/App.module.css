@@ -10,8 +10,20 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 40%;
+  width: 50%;
   border: 1px solid #ff4141;
+}
+
+.typeCalculation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem;
+}
+
+.addressButtons {
+  display: flex;
+  gap: 0.25rem;
 }
 
 .wrapperRight{
