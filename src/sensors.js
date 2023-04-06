@@ -77,8 +77,9 @@ export const sensorsPerformCalculation = async (sensors, time, onPerformSensor) 
 }
 
 export const sensorsPerformAddressCalculation = async (sensors, onPerformSensor) => {
-  sensors.sort((a, b) => a.priority - b.priority);
-  for (const sensor of sensors) {
+  const sortedSensors = [...sensors]
+  sortedSensors.sort((a, b) => a.priority - b.priority);
+  for (const sensor of sortedSensors) {
     await timeout(sensor.timeMeasure * 1000)
     const performedSensor = performSensor(sensor);
     onPerformSensor(performedSensor);
