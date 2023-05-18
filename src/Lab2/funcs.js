@@ -72,12 +72,7 @@ export const calcKx = (DeltaQh, DeltaQMax, Dx) => {
   for (let i = 0; i < DeltaQh.length; i++) {
     Kx[i] = calcKxTa(Dx, DeltaQh[i], DeltaQMax[i]);
   }
-  
-  
   return Kx;
-  // return DeltaQh.map((x, i) => {
-  //   return calcKxTa(Dx, x, DeltaQMax[i]);
-  // });
 };
 
 export const calcJ0 = (Kx) => {

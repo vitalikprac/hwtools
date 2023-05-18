@@ -47,7 +47,7 @@ const Lab3 = () => {
       </div>
       <div className={S.resultWrapper}>
         T = {T.toFixed(4)}<br/>
-        Kx = {Kx.toFixed(4)} <br/>
+        Kx екстраполяції = {Kx.toFixed(4)} <br/>
         Kx інтерполяції = {KxInterpolation.toFixed(4)} <br/>
         X екстраполяції: <b>{extrapolation.toFixed(4)}</b> <br/>
         X інтерполяції: <b>{interpolation.toFixed(4)}</b>
