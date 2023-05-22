@@ -41,7 +41,7 @@ const Lab3 = () => {
             <InputNumber onChange={(value) => handleInputChange(id, value)}
                          step={step} min={min} max={max}
                          value={value}/>
-            <div> {description}</div>
+            <div>{description}</div>
           </div>
         })}
       </div>
